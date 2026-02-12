@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Pytest
+.pytest_cache/
+.pytest_chrome_profiles/
+
+# IDE
+.idea/
+*.iml
+
+# Reports and artifacts
+reports/
+
+# OS files
+.DS_Store
+Thumbs.db

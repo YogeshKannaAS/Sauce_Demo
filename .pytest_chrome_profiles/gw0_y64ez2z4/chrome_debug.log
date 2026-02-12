@@ -1,8 +1,0 @@
-[3212:20208:0212/170259.053:ERROR:gpu\ipc\service\gpu_channel_manager.cc:925] ContextResult::kFatalFailure: Failed to create shared context for virtualization.
-[3212:20208:0212/170259.908:ERROR:gpu\ipc\service\gpu_channel_manager.cc:925] ContextResult::kFatalFailure: Failed to create shared context for virtualization.
-[3212:20208:0212/170259.913:ERROR:gpu\ipc\service\gpu_channel_manager.cc:925] ContextResult::kFatalFailure: Failed to create shared context for virtualization.
-[8424:23576:0212/170301.119:INFO:CONSOLE:0] "[DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o", source: https://www.saucedemo.com/ (0)
-[8424:23576:0212/170302.137:INFO:CONSOLE:2] "Content is cached for offline use.", source: https://www.saucedemo.com/static/js/main.bcf4bc5f.js (2)
-[13248:19756:0212/170302.292:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
-[13248:19756:0212/170302.292:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
-[20184:23252:0212/170320.525:INFO:content\child\child_thread_impl.cc:907] Terminating current process after 15 seconds with no connection.
