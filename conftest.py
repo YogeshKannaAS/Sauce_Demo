@@ -69,3 +69,10 @@ def pytest_runtest_makereport(item, call):
         name=_safe_name(item.nodeid),
         attachment_type=allure.attachment_type.PNG,
     )
+
+
+def pytest_collection_modifyitems(items):
+    # Keep all Selenium UI tests on a single worker to reduce flakiness.
+    for item in items:
+        if "driver" in getattr(item, "fixturenames", []):
+            item.add_marker(pytest.mark.xdist_group("ui"))

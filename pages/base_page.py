@@ -17,7 +17,16 @@ class BasePage:
         return self.wait.until(EC.presence_of_element_located(locator))
 
     def click(self, locator):
-        self.wait.until(EC.element_to_be_clickable(locator)).click()
+        element = self.wait.until(EC.element_to_be_clickable(locator))
+        # Ensure offscreen elements are brought into view before clicking.
+        try:
+            self.driver.execute_script(
+                "arguments[0].scrollIntoView({block: 'center', inline: 'center'});",
+                element,
+            )
+        except Exception:
+            pass
+        element.click()
 
     def type(self, locator, value):
         element = self.find(locator)
