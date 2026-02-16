@@ -33,8 +33,24 @@ steps:
       testRunTitle: "Pytest UI Suite"
     condition: succeededOrFailed()
 
+  - script: |
+      choco install allure -y
+      if exist reports\\allure-results (
+        "%ChocolateyInstall%\\bin\\allure.bat" generate reports\\allure-results -o reports\\allure-report --clean
+      ) else (
+        echo "Allure results not found, skipping report generation."
+      )
+    displayName: "Generate Allure HTML report"
+    condition: succeededOrFailed()
+
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: "reports/allure-results"
       artifact: "allure-results"
+    condition: succeededOrFailed()
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: "reports/allure-report"
+      artifact: "allure-report"
     condition: succeededOrFailed()
