@@ -25,6 +25,9 @@ def driver(request):
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-features=NetworkServiceSandbox")
+    if os.getenv("HEADLESS", "").lower() in ("1", "true", "yes"):
+        options.add_argument("--headless=new")
+        options.add_argument("--window-size=1920,1080")
 
     worker_id = os.getenv("PYTEST_XDIST_WORKER", "gw0")
     profile_root = Path(".pytest_chrome_profiles")
