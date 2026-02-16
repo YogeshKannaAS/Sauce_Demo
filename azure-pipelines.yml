@@ -1,0 +1,40 @@
+trigger:
+  - main
+
+pr:
+  - main
+
+pool:
+  vmImage: "windows-latest"
+
+variables:
+  pythonVersion: "3.11"
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "$(pythonVersion)"
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    displayName: "Install dependencies"
+
+  - script: |
+      python -m pytest -n 1 --junitxml=reports/junit.xml --alluredir=reports/allure-results
+    displayName: "Run tests"
+    env:
+      HEADLESS: "1"
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: "JUnit"
+      testResultsFiles: "reports/junit.xml"
+      testRunTitle: "Pytest UI Suite"
+    condition: succeededOrFailed()
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: "reports/allure-results"
+      artifact: "allure-results"
+    condition: succeededOrFailed()

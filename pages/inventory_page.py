@@ -15,19 +15,28 @@ class InventoryPage(BasePage):
     def wait_for_loaded(self, timeout=None):
         wait_time = timeout or config.EXPLICIT_WAIT
         WebDriverWait(self.driver, wait_time).until(
-            EC.visibility_of_element_located(self.TITLE)
+            EC.text_to_be_present_in_element(self.TITLE, "Products")
         )
         return self
 
     def is_loaded(self):
-        return self.text_of(self.TITLE) == "Products"
+        try:
+            return self.text_of(self.TITLE) == "Products"
+        except TimeoutException:
+            return False
 
     def add_item(self, item_id):
         add_button = (By.ID, f"add-to-cart-{item_id}")
         remove_button = (By.ID, f"remove-{item_id}")
         self.click(add_button)
         # Wait until the item is confirmed added before moving on.
-        self.wait.until(EC.presence_of_element_located(remove_button))
+        try:
+            self.wait.until(EC.presence_of_element_located(remove_button))
+        except TimeoutException:
+            self.driver.execute_script(
+                "arguments[0].click();", self.find(add_button)
+            )
+            self.wait.until(EC.presence_of_element_located(remove_button))
 
     def open_cart(self):
         self.click(self.CART_LINK)
